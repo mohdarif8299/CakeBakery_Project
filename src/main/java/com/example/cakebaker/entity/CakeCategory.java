@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,7 +26,7 @@ public class CakeCategory {
 	private String category_name;
 	private String category_featured_image;
 	
-	@JsonManagedReference
+	@JsonIgnoreProperties(value={"cakeCategory"})
 	@OneToMany(mappedBy="cakeCategory",cascade=CascadeType.ALL)
 	private List<Product> product;
 	

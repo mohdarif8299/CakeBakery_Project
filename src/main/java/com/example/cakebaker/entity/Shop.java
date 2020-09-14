@@ -34,7 +34,7 @@ public class Shop {
 	@OneToOne(targetEntity=Address.class,cascade=CascadeType.ALL)
 	private Address address;
 	
-	
+	@JsonIgnoreProperties(value={"shop"})
 	@OneToMany(mappedBy="shop",cascade=CascadeType.ALL)
 	private List<Product> product;
 	

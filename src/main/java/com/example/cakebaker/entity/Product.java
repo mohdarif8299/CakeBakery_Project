@@ -1,15 +1,18 @@
 package com.example.cakebaker.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -32,14 +35,15 @@ public class Product {
 	private String product_topview;
 	private boolean eggless;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties(value={"product"})
 	@ManyToOne
 	@JoinColumn(name="shopId",nullable=false)
 	private Shop shop;
 	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="category_id",nullable=false)
+	
+	@JsonIgnoreProperties(value={"product"})
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="categoryId",nullable=false)
 	private CakeCategory cakeCategory;
 	
 	public Shop getShop() {
